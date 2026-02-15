@@ -1,3 +1,5 @@
+import { repeatPattern } from "./02-rangoli-maker";
+
 /**
  * 🛺 Auto Rickshaw Fare Calculator - Number & Math
  *
@@ -52,20 +54,62 @@
  */
 export function parseFare(fareString) {
   // Your code here
+  if (typeof fareString != "string") return -1;
+
+  let fareNum = parseFloat(fareString);
+
+  if (Number.isNaN(fareNum)) return -1;
+  else return fareNum;
 }
 
 export function roundFare(amount, decimalPlaces) {
   // Your code here
+  if (
+    typeof amount !== "number" ||
+    typeof decimalPlaces !== "number" ||
+    Number.isNaN(amount) ||
+    Number.isNaN(decimalPlaces) ||
+    decimalPlaces < 0 ||
+    !Number.isInteger(decimalPlaces)
+  )
+  return "";
+
+  return amount.toFixed(decimalPlaces);
 }
 
 export function calculateSurge(baseFare, surgeMultiplier) {
   // Your code here
+  if(
+    baseFare <= 0 ||
+    surgeMultiplier <= 0 ||
+    Number.isNaN(baseFare) ||
+    Number.isNaN(surgeMultiplier) ||
+    typeof baseFare != "number" ||
+    typeof surgeMultiplier != "number"
+  )
+  return 0;
+  return Math.ceil(baseFare * surgeMultiplier);
 }
 
 export function findCheapestAndCostliest(...fares) {
   // Your code here
+  fares = fares.filter(
+    (value) => typeof value === "number" && !Number.isNaN(value),
+  );
+  let cheapest, costliest;
+  cheapest = Math.min(...fares);
+  costliest = Math.max(...fares);
+  if (cheapest < 0 || costliest < 0) return null;
+  return { cheapest, costliest };
 }
 
 export function getDistanceDifference(from, to) {
   // Your code here
+  let start = parseInt(from);
+  let end = parseInt(to);
+
+  if (Number.isNaN(start) || Number.isNaN(end)) {
+    return -1;
+  }
+  return Math.abs(start - end);
 }
